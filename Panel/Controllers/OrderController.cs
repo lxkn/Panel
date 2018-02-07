@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Panel.Controllers;
+using Panel.Models;
+using Panel.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,9 +22,17 @@ namespace Panel
   }
   // GET: api/<controller>
   [HttpGet]
-  public string Get()
+  public IActionResult Get()
   {
-   return "value";
+   try
+   {
+    var results = _repository.GetAllOrders();
+    return Ok(Mapper.Map<IEnumerable<OrderViewModel>>(results));
+   }
+   catch (Exception e)
+   {
+    return BadRequest("Something went wrong..");
+   }
   }
 
   // GET api/<controller>/5
@@ -34,8 +44,21 @@ namespace Panel
 
   // POST api/<controller>
   [HttpPost]
-  public void Post([FromBody]string value)
+  public IActionResult Post([FromBody]OrderViewModel order)
   {
+   try
+   {
+    if (ModelState.IsValid)
+    {
+     var newOrder = Mapper.Map<Order>(order);
+     _repository.AddOrder(newOrder);
+     return Created($"api/players/{order.Address}", Mapper.Map<OrderViewModel>(newOrder));
+    }
+   }
+   catch(Exception e)
+   {
+   }
+   return BadRequest("Something went wrong..., failed to add order!");
   }
 
   // PUT api/<controller>/5

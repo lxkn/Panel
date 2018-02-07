@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Panel.Controllers;
+using Panel.Models;
+using Panel.ViewModels;
 
 namespace Panel
 {
@@ -26,6 +27,8 @@ namespace Panel
   {
    services.AddDbContext<PizzaContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+   services.AddSingleton(Configuration);
+   services.AddScoped<IMyRepository, MyRepository>();
    services.AddMvc();
   }
 
@@ -44,6 +47,11 @@ namespace Panel
    {
     app.UseExceptionHandler("/Home/Error");
    }
+   AutoMapper.Mapper.Initialize(config =>
+   {
+    config.CreateMap<OrderViewModel, Order>().ReverseMap();
+    config.CreateMap<DishViewModel, Dish>().ReverseMap();
+   });
 
    app.UseStaticFiles();
 

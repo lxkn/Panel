@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Panel.Models;
 
-namespace Panel.Controllers
+namespace Panel.Models
 {
  public class MyRepository : IMyRepository
  {
@@ -15,7 +15,14 @@ namespace Panel.Controllers
   {
    _dbContext = dbContext;
   }
-  public ICollection<Order> GetAllOrders()
+
+  public void AddOrder(Order order)
+  {
+   _dbContext.Orders.Add(order);
+   _dbContext.SaveChanges();
+  }
+
+  public IEnumerable<Order> GetAllOrders()
   {
    return _dbContext.Orders.ToList();
   }

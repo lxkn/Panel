@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Panel.Models;
 
-namespace Panel.Controllers
+namespace Panel.Models
 {
  public class PizzaContext : DbContext
  {

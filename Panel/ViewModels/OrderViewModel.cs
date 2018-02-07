@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Panel.Models
+namespace Panel.ViewModels
 {
- public class Order
+ public class OrderViewModel
  {
   [Key]
   public int OrderId { get; set; }
@@ -16,6 +16,7 @@ namespace Panel.Models
   public string TimeStart { get; set; }
   public string TimeStop { get; set; }
   public int Status { get; set; } // 0 - UNCONFIRMED 1- IN REALISATION 2- MADE
-  public ICollection<Dish> orderList { get; set; }
+  public ICollection<DishViewModel> orderList { get; set; }
+
  }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Panel.Controllers;
 using System;
-
+using Panel.Models;
 namespace Panel.Migrations
 {
     [DbContext(typeof(PizzaContext))]

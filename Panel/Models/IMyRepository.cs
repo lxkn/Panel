@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Panel.Models;
 
-namespace Panel.Controllers
+namespace Panel.Models
 {
  public interface IMyRepository
  {
-  ICollection<Order> GetAllOrders();
+  IEnumerable<Order> GetAllOrders();
+  void AddOrder(Order order);
  }
 }
